@@ -1,0 +1,43 @@
+{
+  "window_size": 30,
+  "stride": 15,
+  "overlap_percent": 50,
+  "feature_dim": 269,
+  "class_mapping": {
+    "overhead_smash": 0,
+    "other_stroke": 1,
+    "idle_footwork": 2
+  },
+  "shapes": {
+    "X_train": [
+      600,
+      30,
+      269
+    ],
+    "y_train": [
+      600
+    ],
+    "X_val": [
+      25,
+      30,
+      269
+    ],
+    "y_val": [
+      25
+    ],
+    "X_test": [
+      25,
+      30,
+      269
+    ],
+    "y_test": [
+      25
+    ]
+  },
+  "augmentations_applied_to_train": {
+    "rotation_y_deg": "+/- 10 degrees",
+    "gaussian_noise_sigma": 0.015,
+    "temporal_time_warp": "0.85x to 1.15x",
+    "augment_multiplier": 2
+  }
+}
