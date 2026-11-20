@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "collections": [
+    {
+      "path": "users/{userId}/sessions/{sessionId}",
+      "description": "Athlete biomechanical tracking sessions and aggregated performance metrics",
+      "fields": {
+        "id": { "type": "string", "description": "Unique session ID" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "sessionName": { "type": "string", "description": "Descriptive title of session" },
+        "athleteName": { "type": "string", "description": "Name or ID of athlete" },
+        "sport": { "type": "string", "description": "Sport type (Badminton, Tennis)" },
+        "trackingMode": { "type": "string", "description": "Selected analysis mode" },
+        "peakSmashVelocity": { "type": "number", "description": "Peak smash velocity in km/h" },
+        "avgElbowAngle": { "type": "number", "description": "Average elbow angle in degrees" },
+        "faultCount": { "type": "integer", "description": "Count of detected biomechanical faults" },
+        "totalStrokes": { "type": "integer", "description": "Total strokes tracked in session" },
+        "notes": { "type": "string", "description": "Coach analysis or notes" },
+        "createdAt": { "type": "timestamp", "description": "Server timestamp when created" },
+        "updatedAt": { "type": "timestamp", "description": "Server timestamp when updated" }
+      }
+    },
+    {
+      "path": "users/{userId}/telemetryLogs/{logId}",
+      "description": "High-frequency stroke telemetry records",
+      "fields": {
+        "id": { "type": "string", "description": "Telemetry event ID" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "strokeType": { "type": "string", "description": "Stroke classification" },
+        "elbowAngle": { "type": "number", "description": "Measured elbow angle" },
+        "shoulderRotation": { "type": "number", "description": "Shoulder rotation angle" },
+        "velocityKmH": { "type": "number", "description": "Computed peak stroke velocity" },
+        "inferenceLatencyMs": { "type": "number", "description": "On-device AI latency in ms" },
+        "isFault": { "type": "boolean", "description": "Whether an overextension or fault was flagged" },
+        "faultReason": { "type": "string", "description": "Explanation of fault if any" },
+        "createdAt": { "type": "timestamp", "description": "Server timestamp of event" }
+      }
+    },
+    {
+      "path": "users/{userId}/coachingNotes/{noteId}",
+      "description": "AI Biomechanics Coach recommendations and analysis",
+      "fields": {
+        "id": { "type": "string", "description": "Note ID" },
+        "userId": { "type": "string", "description": "Owner user ID" },
+        "topic": { "type": "string", "description": "Focus area of coaching" },
+        "coachAdvice": { "type": "string", "description": "AI coaching recommendations" },
+        "modelUsed": { "type": "string", "description": "Gemini model used" },
+        "createdAt": { "type": "timestamp", "description": "Server timestamp" }
+      }
+    }
+  ]
+}

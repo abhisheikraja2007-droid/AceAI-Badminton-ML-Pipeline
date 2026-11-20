@@ -1,0 +1,81 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isValidSession(data) {
+      return data.keys().hasAll(['userId', 'sessionName', 'athleteName', 'sport', 'trackingMode', 'createdAt', 'updatedAt'])
+        && data.userId is string
+        && data.sessionName is string && data.sessionName.size() > 0 && data.sessionName.size() <= 100
+        && data.athleteName is string && data.athleteName.size() <= 80
+        && data.sport is string && data.sport.size() <= 40
+        && data.trackingMode is string
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidTelemetryLog(data) {
+      return data.keys().hasAll(['userId', 'strokeType', 'elbowAngle', 'velocityKmH', 'isFault', 'createdAt'])
+        && data.userId is string
+        && data.strokeType is string && data.strokeType.size() <= 50
+        && data.elbowAngle is number
+        && data.velocityKmH is number
+        && data.isFault is bool
+        && data.createdAt is timestamp;
+    }
+
+    function isValidCoachingNote(data) {
+      return data.keys().hasAll(['userId', 'topic', 'coachAdvice', 'createdAt'])
+        && data.userId is string
+        && data.topic is string && data.topic.size() <= 100
+        && data.coachAdvice is string && data.coachAdvice.size() > 0 && data.coachAdvice.size() <= 5000
+        && data.createdAt is timestamp;
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      match /sessions/{sessionId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && isValidSession(request.resource.data);
+        allow update: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && request.resource.data.createdAt == resource.data.createdAt
+          && isValidSession(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+
+      match /telemetryLogs/{logId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && isValidTelemetryLog(request.resource.data);
+        allow update: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && isValidTelemetryLog(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+
+      match /coachingNotes/{noteId} {
+        allow read: if isOwner(userId);
+        allow create: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && isValidCoachingNote(request.resource.data);
+        allow update: if isOwner(userId)
+          && request.resource.data.userId == userId
+          && isValidCoachingNote(request.resource.data);
+        allow delete: if isOwner(userId);
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "AceAI HUD",
+  "description": "High-contrast real-time edge biomechanics HUD, kinematic tracking, and AI stroke coach.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
