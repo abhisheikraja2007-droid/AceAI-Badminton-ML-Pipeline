@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Deep Carbon Black Base -->
+    <path
+        android:fillColor="#0B0F19"
+        android:pathData="M0,0h108v108h-108z" />
+
+    <!-- Subtle Tech HUD Grid -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M18,0L18,108 M36,0L36,108 M54,0L54,108 M72,0L72,108 M90,0L90,108"
+        android:strokeWidth="0.75"
+        android:strokeColor="#1E293B" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M0,18L108,18 M0,36L108,36 M0,54L108,54 M0,72L108,72 M0,90L108,90"
+        android:strokeWidth="0.75"
+        android:strokeColor="#1E293B" />
+
+    <!-- Corner Calibration Brackets -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M24,32L24,24L32,24 M76,24L84,24L84,32 M84,76L84,84L76,84 M32,84L24,84L24,76"
+        android:strokeWidth="1.5"
+        android:strokeColor="#00E5FF" />
+</vector>
